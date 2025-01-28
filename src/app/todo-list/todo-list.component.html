@@ -1,0 +1,11 @@
+<div class=" mx-auto">
+    @for(task of tasksArr; track $index){
+        <div class="bg-light mb-3 p-3 d-flex align-items-center justify-content-between">
+            <section class="{{task.isConfirmed ? 'text-decoration-line-through':''}}" >{{task.task}}</section>
+            <div>
+                <button (click)="updateCompleted(task.id)" [disabled]="task.isConfirmed"  class="btn btn-warning">completed</button>
+                <button (click)="deleteTask(task.id)" class="btn btn-danger ms-2">delete</button>
+            </div>
+        </div>
+    }
+</div>

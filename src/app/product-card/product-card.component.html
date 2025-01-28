@@ -1,0 +1,39 @@
+
+<div class="row">
+    @for(product of products; track $index){
+        <div class="col-md-3 mb-3">
+            <div class="card p-3">
+
+                <div class="stock text-white" [ngClass]="product.availabilityStatus === 'In Stock' ? 'bg-success' : 'bg-danger'">
+                    {{product.availabilityStatus}}
+                </div>
+ 
+                <img [src]="product.thumbnail" alt="">
+                <div class="d-flex justify-content-between">
+                    <h5>
+                        {{product.title}}
+                    </h5>
+                    <strong>
+                        {{product.price}} EG
+                    </strong>
+                </div>
+                <p>
+                    {{product?.description.split(" ").slice(0,15).join(" ")}}
+                </p>
+                
+                <div class="stars text-success">
+                    @for(star of [1, 2, 3, 4, 5]; track $index){
+                        <i class="fa-solid text-success" [ngClass]="{'fa-star': star <= Math.round(product.rating)}">
+                        </i>
+                    }
+                </div>
+
+                <button class="btn btn-light px-4 py-2 mt-3">add to Cart</button>
+                <button class="btn btn-success px-4 py-2 mt-3">
+                    <a [routerLink]="['/details/', product.id]" class="text-white text-decoration-none">View details</a>
+                </button>
+
+            </div>
+        </div>
+    }
+</div>
