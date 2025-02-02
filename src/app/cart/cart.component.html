@@ -1,1 +1,32 @@
-<p>cart works!</p>
+
+<div class="container">
+  @if (products.length > 0) {
+    @for (item of products; track item.id) {
+      <div class="card mb-3">
+        <div class="d-flex align-items-center p-3">
+          <div>
+            <img class="image me-3" [src]="item?.thumbnail" alt="{{ item?.title }}" onerror="this.src='path/to/placeholder-image.png';">
+          </div>
+          <div>
+            <h2>{{ item?.title }}</h2>
+            <span class="text-success">Brand: {{ item?.brand }}</span>
+            <h3 class="my-1">${{ (item?.price ?? 0) * (item?.quantity ?? 0) }}</h3>
+            <div class="quantity align-items-center mt-3 d-flex">
+              <button (click)="decrease(item)" class="minus btn btn-danger" aria-label="Decrease quantity">-</button>
+              <section class="countSpan text-center">{{ item?.quantity }}</section>
+              <button (click)="increase(item)" class="plus btn btn-primary" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <br>
+    <div class="text-center card mb-5 p-3">
+      <h2>Total Price</h2>
+      <h4>Total: <strong>${{ total }}</strong></h4>
+    </div>
+  } @else {
+    <h2 class="text-center">Cart is Empty....</h2>
+  }
+</div>
