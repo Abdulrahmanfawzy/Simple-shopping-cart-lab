@@ -1,17 +1,142 @@
-<h2>Register</h2>
-<form>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+<h2 class="mb-4">Register</h2>
+<form [formGroup]="registerForm" class="mb-5" (submit)="handleSubmit()">
+
+  <div class="form-group mb-2">
+    <label for="exampleInputUsername1" class="mb-1">Username</label>
+    <input
+      type="text"
+      formControlName="usernameRegister"
+      class="form-control"
+      id="exampleInputUsername1"
+      aria-describedby="emailHelp"
+      placeholder="Enter Username"
+      required
+      minlength="4"
+    />
+    @if(formControls['usernameRegister'].invalid && formControls['usernameRegister'].touched){
+
+      @if (formControls['usernameRegister'].hasError("required")) {
+        <small id="usernameHelp" class="form-text text-danger">
+         username is required *
+        </small>
+      }@else if (formControls['usernameRegister'].hasError("minlength")) {
+        <small id="usernameHelp" class="form-text text-danger">
+          length must be more than 4 characters
+        </small>
+      }
+
+    }
+
+  </div>
+
+  <div class="form-group mb-2">
+    <label for="exampleInputemail" class="mb-1">Email</label>
+    <input
+      type="email"
+      formControlName="emailRegister"
+      class="form-control"
+      id="exampleInputemail"
+      aria-describedby="emailHelp"
+      placeholder="Enter Email"
+      required
+      pattern="\w+@\w+\.[a-z]{2,6}"
+    />
+    @if(formControls['emailRegister'].invalid && formControls['emailRegister'].touched){
+
+      @if (formControls['emailRegister'].hasError("required")) {
+        <small id="usernameHelp" class="form-text text-danger">
+         Email is required *
+        </small>
+      }@else if (formControls['emailRegister'].hasError("pattern")) {
+        <small id="usernameHelp" class="form-text text-danger">
+          Email is not match the pattern
+        </small>
+      }
+
+    }
+
+  </div>
+
+  <div class="form-group mb-2">
+    <label for="phoneRegister" class="mb-1">Phone</label>
+    <input
+      type="tel"
+      formControlName="phoneRegister"
+      class="form-control"
+      id="exampleInputPass"
+      aria-describedby="passHelp"
+      placeholder="Enter Phone"
+      required
+      pattern="01[0125][0-9]{8}"
+    />
+    @if(formControls['phoneRegister'].invalid && formControls['phoneRegister'].touched){
+
+      @if (formControls['phoneRegister'].hasError("required")) {
+        <small id="passHelp" class="form-text text-danger">
+         phone is required *
+        </small>
+      }@else if (formControls['phoneRegister'].hasError("pattern")) {
+        <small id="passHelp" class="form-text text-danger">
+          phone is not match the pattern
+        </small>
+      }
+
+    }
+
+  </div>
+  <div class="form-group mb-2">
+    <label for="exampleInputPass" class="mb-1">Password</label>
+    <input
+      type="password"
+      formControlName="passRegister"
+      class="form-control"
+      id="exampleInputPass"
+      aria-describedby="emailHelp"
+      placeholder="Enter Password"
+      required
+      pattern="[A-Z][a-z0-9]{6,}"
+    />
+    @if(formControls['passRegister'].invalid && formControls['passRegister'].touched){
+
+      @if (formControls['passRegister'].hasError("required")) {
+        <small id="passHelp" class="form-text text-danger">
+         password is required *
+        </small>
+      }@else if (formControls['passRegister'].hasError("pattern")) {
+        <small id="passHelp" class="form-text text-danger">
+          Password is not match the pattern
+        </small>
+      }
+
+    }
+  </div>
+
+  <div class="form-group mb-2">
+    <label for="exampleInputPass" class="mb-1">RePassword</label>
+    <input
+      type="password"
+      formControlName="rePassRegister"
+      class="form-control"
+      id="exampleInputPass"
+      aria-describedby="emailHelp"
+      placeholder="Enter RePassword"
+      required
+      pattern="[A-Z][a-z0-9]{6,}"
+    />
+    @if(formControls['rePassRegister'].invalid && formControls['rePassRegister'].touched){
+      
+      @if(registerForm.errors?.['mismatch']){
+        <small id="passHelp" class="form-text text-danger">
+          repassword is not match the password
+        </small>
+      }@else {
+        <small id="passHelp" class="form-text text-danger">
+          repassword is required
+        </small>
+      }
+
+    }
+  </div>
+  <!-- [disabled]="registerForm.invalid" -->
+  <button type="submit"  class="btn btn-primary">Signup</button>
+</form>

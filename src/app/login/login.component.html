@@ -1,18 +1,60 @@
+<h2 class="mb-3">Login</h2>
 
-<h2>Login</h2>
-<form>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+<form #formRef="ngForm" (submit)="handleSubmitForm(formRef)">
+  <div class="form-group mb-3">
+    <label for="exampleInputEmail1" class="mb-1">Email address</label>
+    <input
+      type="email"
+      name="email"
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      placeholder="Enter your email"
+      [(ngModel)]="formValues.email"
+      required
+      #emailField="ngModel"
+      pattern="\w+@\w+\.[a-z]{2,6}"
+    />
+    @if(emailField.invalid && emailField.touched){
+      @if(emailField.hasError("required")){
+        <small id="emailHelp" class="form-text text-danger">
+          email is required
+        </small>
+      } @else if (emailField.hasError("pattern")) {
+        <small id="emailHelp" class="form-text text-danger">
+          your mail is not match the pattern
+        </small>
+      }
+    }
+    
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1" class="mb-1">Password</label>
+    <input
+      type="password"
+      name="password"
+      class="form-control"
+      id="exampleInputPassword1"
+      placeholder="Password"
+      [(ngModel)]="formValues.password"
+      #passwordField="ngModel"
+      required
+      pattern="[A-Z][a-z0-9]{6,}"
+    />
+    @if(passwordField.invalid && passwordField.touched){
+      @if(passwordField.hasError("required")){
+        <small id="passHelp" class="form-text text-danger">
+          password is required
+        </small>
+      } @else if (passwordField.hasError("pattern")) {
+        <small id="passHelp" class="form-text text-danger">
+          password is not match the pattern
+        </small>
+      }
+      <small id="emailHelp" class="form-text text-danger">
+          email is required
+      </small>
+    }
+  </div>
+  <button type="submit" [disabled]="formRef.invalid" class="btn btn-primary mt-3">Login</button>
+</form>

@@ -8,7 +8,8 @@
         <div class="navbar-nav ms-auto">
             <a class="nav-item nav-link active" routerLink="/login">Login <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" routerLink="/register">Register</a>
-            <a class="nav-item nav-link" routerLink="/cart">
+            <a class="nav-item nav-link position-relative" routerLink="/cart">
+                <section class="count">{{counter}}</section>
                 <i class="fa-solid fa-cart-shopping"></i>
             </a>
         </div>

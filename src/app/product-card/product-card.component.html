@@ -1,6 +1,6 @@
 
 <div class="row">
-    @for(product of products; track $index){
+    @for(product of productList; track $index){
         <div class="col-md-3 mb-3">
             <div class="card p-3">
 
@@ -28,7 +28,7 @@
                     }
                 </div>
 
-                <button class="btn btn-light px-4 py-2 mt-3">add to Cart</button>
+                <button (click)="itmAddToCart(product)" class="btn btn-light px-4 py-2 mt-3">add to Cart</button>
                 <button class="btn btn-success px-4 py-2 mt-3">
                     <a [routerLink]="['/details/', product.id]" class="text-white text-decoration-none">View details</a>
                 </button>
@@ -37,3 +37,4 @@
         </div>
     }
 </div>
+
